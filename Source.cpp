@@ -165,18 +165,25 @@ int main()
 		int K;
 		cout << "Введите К:";
 		cin >> K;
-		ofstream outFile(name);
-		if (outFile.is_open()) 
+		if (K > 0)
 		{
-			string stars(K, ' ');
-			fill_n(stars.begin(), K, '*');
-			outFile << stars; 
-			outFile.close(); 
-			cout << "Записано " << K << " символов '*' в файл " << name << endl;
+			ofstream outFile(name);
+			if (outFile.is_open())
+			{
+				string stars(K, ' ');
+				fill_n(stars.begin(), K, '*');
+				outFile << stars;
+				outFile.close();
+				cout << "Записано " << K << " символов '*' в файл " << name << endl;
+			}
+			else
+			{
+				cout << "Не удалось открыть файл для записи." << endl;
+			}
 		}
-		else 
+		else
 		{
-			cout << "Не удалось открыть файл для записи." << endl;
+			cout << "K должно быть положительным!";
 		}
 		break;
 	}
