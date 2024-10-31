@@ -161,14 +161,14 @@ int main()
 	}
 	case 4:
 	{
-		string name = "name";
+		string name = "1";
 		int K;
 		cout << "Введите К:";
 		cin >> K;
 		ofstream outFile(name);
 		if (outFile.is_open()) 
 		{
-			string stars(K, '*');
+			string stars(K, ' ');
 			fill_n(stars.begin(), K, '*');
 			outFile << stars; 
 			outFile.close(); 
