@@ -63,6 +63,11 @@ void remove_last_zero(deque<int>& d)
 	if (it != d.rend()) 
 	{
 		d.erase((++it).base());
+		print(d);
+	}
+	else
+	{
+		cout << "0 не найден!";
 	}
 }
 
@@ -70,42 +75,45 @@ void copy_and_reverse_half(list<int>& L)
 {
 	if (L.size() % 2 != 0) 
 	{
-		cout << "Список должен содержать ЧЕТНОЕ количество элементов";
+		cout << "Список должен содержать ЧЕТНОЕ количество элементов!";
 	}
-	auto mid = next(L.begin(), L.size() / 2);
-	list<int> temp;
-	replace_copy_if(L.begin(), mid, back_inserter(temp), [](int n) { return n < 0; }, 0);
-	for (auto it = temp.rbegin(); it != temp.rend(); ++it) 
+	else
 	{
-		L.push_back(*it);
+		auto mid = next(L.begin(), L.size() / 2);
+		list<int> temp;
+		replace_copy_if(L.begin(), mid, back_inserter(temp), [](int n) { return n < 0; }, 0);
+		for (auto it = temp.rbegin(); it != temp.rend(); ++it)
+		{
+			L.push_back(*it);
+		}
+		print(L);
 	}
 }
 
 void rearrange_list(std::list<int>& L) 
 {
-	// Убедимся, что список четный
 	if (L.size() % 2 != 0) 
 	{
 		cout << "Список должен содержать ЧЕТНОЕ количество элементов.\n";
 	}
-
-	// Находим середину списка
-	auto mid = next(L.begin(), L.size() / 2);
-
-	// Сначала перегруппируем четные и нечетные элементы первой половины
-	list<int> first_half(L.begin(), mid);
-	stable_partition(first_half.begin(), first_half.end(),
-		[](int n) { return n % 2 == 0; });
-
-	// Затем перегруппируем четные и нечетные элементы второй половины
-	list<int> second_half(mid, L.end());
-	stable_partition(second_half.begin(), second_half.end(),
-		[](int n) { return n % 2 == 0; });
-
-	// Очищаем оригинальный список и добавляем элементы в нужном порядке
-	L.clear();
-	L.insert(L.end(), first_half.begin(), first_half.end());
-	L.insert(L.end(), second_half.begin(), second_half.end());
+	else
+	{
+		// Находим середину списка
+		auto mid = next(L.begin(), L.size() / 2);
+		// Сначала перегруппируем четные и нечетные элементы первой половины
+		list<int> first_half(L.begin(), mid);
+		stable_partition(first_half.begin(), first_half.end(),
+			[](int n) { return n % 2 == 0; });
+		// Затем перегруппируем четные и нечетные элементы второй половины
+		list<int> second_half(mid, L.end());
+		stable_partition(second_half.begin(), second_half.end(),
+			[](int n) { return n % 2 == 0; });
+		// Очищаем оригинальный список и добавляем элементы в нужном порядке
+		L.clear();
+		L.insert(L.end(), first_half.begin(), first_half.end());
+		L.insert(L.end(), second_half.begin(), second_half.end());
+		print(L);
+	}
 }
 
 int main()
@@ -191,7 +199,6 @@ int main()
 	{
 		input(d);
 		remove_last_zero(d);
-		print(d);
 		break;
 	}
 	case 6:
@@ -199,7 +206,6 @@ int main()
 		cout << "Введите список с ЧЕТНЫМ колличеством элементов" << endl;
 		input(L);
 		copy_and_reverse_half(L);
-		print(L);
 		break;
 	}
 	case 7:
@@ -207,7 +213,6 @@ int main()
 		cout << "Введите список с ЧЕТНЫМ колличеством элементов" << endl;
 		input(L);
 		rearrange_list(L);
-		print(L);
 		break;
 	}
 	}
